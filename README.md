@@ -3,6 +3,9 @@
 A community Kiro Power for reviewing GitLab merge requests
 and diagnosing CI pipeline failures, using read-only tools.
 
+> Source code is hosted on GitHub; the Power connects to GitLab
+> (`gitlab.com` by default, configurable via `GITLAB_API_URL`).
+
 ## Status
 
 Under development (version 0.1.0). Read-only GitLab access is working.
@@ -25,6 +28,20 @@ makes it safe to share across a team.
   smallest suggested fix (marked unverified until tested).
 - **review-merge-request** — Summarize a merge request's changes, risk
   areas, and test coverage, and check review and merge readiness.
+
+## Try it: self-guided demo
+
+New here? Take the self-running tour. No presenter needed — follow the
+prompts and compare against the "what you should see" notes.
+
+- [DEMO.md](DEMO.md) — overview tour with role tracks and a warm-up.
+- Role-specific walkthroughs:
+  - [Developer](demos/DEMO-developer.md)
+  - [QA / Tester](demos/DEMO-qa.md)
+  - [Manager / Lead / Business](demos/DEMO-manager.md)
+
+The demo uses a public example merge request that deliberately contains a
+bug and a failing pipeline, so there is always something to find.
 
 ## Example prompts
 
@@ -131,6 +148,11 @@ Setup:
   holds placeholders only.
 - CI job logs and merge request text are treated as untrusted data,
   not as instructions.
+
+## License
+
+Released under the [MIT License](LICENSE). Copyright (c) 2026 Christos
+Xenakidis.
 
 ## Affiliation
 

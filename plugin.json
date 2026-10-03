@@ -2,6 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "kiro-power-gitlab",
   "version": "0.1.0",
+  "license": "MIT",
   "description": "Investigate GitLab merge requests and failed CI pipelines using read-only tools.",
   "author": {
     "name": "Christos Xenakidis"
