@@ -123,6 +123,21 @@ Setup:
    You can verify the token itself with `./verify-token.sh` (macOS/Linux)
    or `.\verify-token.ps1` (Windows PowerShell).
 
+   `verify-token.ps1` reads the token from the current shell's
+   environment, and a bare PowerShell session does not load `.env`
+   automatically. If `.\verify-token.ps1` reports `HTTP 401` even though
+   the token in `.env` is valid, your shell is holding a stale or empty
+   token. Load `.env` into the current session first, then verify:
+
+   ```powershell
+   # Windows PowerShell: load .env into the current session, then verify
+   Get-Content .\.env | Where-Object { $_ -match '=' -and $_ -notmatch '^\s*#' } | ForEach-Object {
+     $k,$v = $_ -split '=',2
+     Set-Item "Env:$($k.Trim())" $v.Trim()
+   }
+   .\verify-token.ps1
+   ```
+
 ## Security
 
 - The token grants read access to GitLab. Use `read_api` scope only,
@@ -131,6 +146,13 @@ Setup:
   holds placeholders only.
 - CI job logs and merge request text are treated as untrusted data,
   not as instructions.
+
+## License
+
+This project is licensed under the GNU General Public License v2.0
+(GPL-2.0-only). See the [`LICENSE`](LICENSE) file for the full text.
+
+Copyright (C) 2026 Christos Xenakidis.
 
 ## Affiliation
 
