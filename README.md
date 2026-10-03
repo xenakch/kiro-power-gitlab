@@ -78,24 +78,50 @@ Setup:
 3. Launch Kiro from a shell that has the token in its environment. The
    token is read from the `GITLAB_PERSONAL_ACCESS_TOKEN` environment
    variable at launch; the MCP config does not read `.env` directly.
-   The simplest way is the included wrapper, which sources `.env` and
+   The simplest way is the included wrapper, which loads `.env` and
    starts Kiro in one step:
 
    ```bash
    ./start.sh            # macOS/Linux; starts `kiro-cli chat`
    ```
 
+   ```powershell
+   .\start.ps1           # Windows PowerShell; starts `kiro-cli chat`
+   ```
+
    The wrapper contains no secret — it only loads `.env` for the Kiro
-   process it launches. Alternatively, export the token yourself before
+   process it launches. Alternatively, set the token yourself before
    launching Kiro:
 
    ```bash
-   set -a; . ./.env; set +a    # load and export vars from .env
+   set -a; . ./.env; set +a    # macOS/Linux: load and export vars from .env
    kiro-cli chat
    ```
 
+   ```powershell
+   # Windows PowerShell: load .env, then start Kiro
+   Get-Content .env | Where-Object { $_ -match '=' } | ForEach-Object {
+     $k,$v = $_ -split '=',2; Set-Item "Env:$k" $v }
+   kiro-cli chat
+   ```
+
+   To keep the token file outside the repo, set `GITLAB_ENV_FILE` to the
+   path of an `.env` elsewhere; the wrapper loads that instead of the
+   repo-local `.env`. If unset, it defaults to the repo-local `.env`, so
+   existing setups are unaffected.
+
+   ```bash
+   GITLAB_ENV_FILE=~/.config/kiro-power-gitlab/.env ./start.sh   # macOS/Linux
+   ```
+
+   ```powershell
+   $Env:GITLAB_ENV_FILE = "$HOME\.config\kiro-power-gitlab\.env"  # Windows PowerShell
+   .\start.ps1
+   ```
+
 4. Confirm the GitLab server shows as connected in the MCP Servers view.
-   You can verify the token itself with `./verify-token.sh`.
+   You can verify the token itself with `./verify-token.sh` (macOS/Linux)
+   or `.\verify-token.ps1` (Windows PowerShell).
 
 ## Security
 
