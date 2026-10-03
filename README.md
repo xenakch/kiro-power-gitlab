@@ -6,7 +6,7 @@ and diagnosing CI pipeline failures, using read-only tools.
 ## Status
 
 Under development (version 0.1.0). Read-only GitLab access is working.
-Initial setup is Windows-specific; cross-platform support is planned.
+Works cross-platform (Linux, macOS, and Windows) using `npx`.
 
 ## What it does
 
@@ -72,11 +72,30 @@ Setup:
 
 1. Install the Power from this folder (Powers panel → Add Custom Power →
    Import power from a folder).
-2. Provide the GitLab token to the Power's MCP server configuration.
-   Keep real tokens out of committed files. See the troubleshooting
-   notes for how the token is supplied on your platform.
-3. Reconnect the GitLab server (or restart Kiro), then confirm it shows
-   as connected in the MCP Servers view.
+2. Provide your GitLab token. Copy `.env.example` to `.env` and set
+   `GITLAB_PERSONAL_ACCESS_TOKEN`. The `.env` file is git-ignored, so the
+   real token stays out of version control.
+3. Launch Kiro from a shell that has the token in its environment. The
+   token is read from the `GITLAB_PERSONAL_ACCESS_TOKEN` environment
+   variable at launch; the MCP config does not read `.env` directly.
+   The simplest way is the included wrapper, which sources `.env` and
+   starts Kiro in one step:
+
+   ```bash
+   ./start.sh            # macOS/Linux; starts `kiro-cli chat`
+   ```
+
+   The wrapper contains no secret — it only loads `.env` for the Kiro
+   process it launches. Alternatively, export the token yourself before
+   launching Kiro:
+
+   ```bash
+   set -a; . ./.env; set +a    # load and export vars from .env
+   kiro-cli chat
+   ```
+
+4. Confirm the GitLab server shows as connected in the MCP Servers view.
+   You can verify the token itself with `./verify-token.sh`.
 
 ## Security
 

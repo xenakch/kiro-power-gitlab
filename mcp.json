@@ -3,7 +3,7 @@
   "mcpServers": {
     "gitlab": {
       "type": "stdio",
-      "command": "npx.cmd",
+      "command": "npx",
       "args": [
         "-y",
         "@zereight/mcp-gitlab@2.1.68"
