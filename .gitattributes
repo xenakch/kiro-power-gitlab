@@ -1,0 +1,9 @@
+# GitLab/GitHub language stats (Linguist)
+#
+# These are auxiliary launch/verify wrappers, not the substance of the
+# project (which is read-only skills + config + docs). Mark them vendored
+# so they don't dominate the detected-language label.
+start.ps1        linguist-vendored
+verify-token.ps1 linguist-vendored
+start.sh         linguist-vendored
+verify-token.sh  linguist-vendored
