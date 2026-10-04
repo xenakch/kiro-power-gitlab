@@ -3,6 +3,12 @@
 .env.*
 !.env.example
 
+# Kiro local settings (may contain real tokens — never commit)
+.kiro/
+
+# Accidental nested copy of the project
+/kiro-power-gitlab/
+
 # Private SSH keys
 id_rsa
 id_ed25519
